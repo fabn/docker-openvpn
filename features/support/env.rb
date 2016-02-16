@@ -5,8 +5,6 @@ require 'pry'
 Around('@dataVolume') do |scenario, block|
   @data_volume = 'ovpn-data'
   step %Q{I have a clean data volume named "#{@data_volume}"}
-  # Move to a temporary directory with client stuff
-  create_directory 'clients'
   # Execute scenario
   block.call
 end

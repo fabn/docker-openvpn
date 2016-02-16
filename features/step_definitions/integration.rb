@@ -18,7 +18,7 @@ Given(/^a configured client named "([^"]*)"$/) do |client_name|
   # Get client configuration
   run_simple %Q{docker run --volumes-from #{@data_volume} --rm kylemanna/openvpn ovpn_getclient #{client_name}}
   # Save client config in a named file in clients folder
-  step %Q{a file named "clients/#{client_name}.ovpn" with:}, last_command_started.stdout
+  write_file("clients/#{client_name}.ovpn", last_command_started.stdout)
 end
 
 
