@@ -34,3 +34,8 @@ end
 When(/^I run `([^`]*)` from client "([^"]*)"$/) do |cmd, client|
   run_simple %Q{docker exec #{client} #{cmd}}
 end
+
+# Launch an interactive debugging session
+When(/^i start a pry session$/) do
+  binding.pry
+end
