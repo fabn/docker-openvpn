@@ -32,6 +32,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
+    system-getifaddrs (0.2.1)
     thor (0.19.1)
 
 PLATFORMS
@@ -40,6 +41,7 @@ PLATFORMS
 DEPENDENCIES
   aruba
   cucumber
+  system-getifaddrs
 
 BUNDLED WITH
    1.11.2
