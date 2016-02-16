@@ -9,9 +9,10 @@ Feature: Running the simplest OpenVPN server
 
     When I run "first-client" openvpn client in docker
 
-    When I run `ping -c 1 10.10.10.1` from client "first-client"
+    When I run `ping -c 1 8.8.8.8` from client "first-client"
+    Then the exit status should be 0
+
+    When I run `ls /clients` from client "first-client"
     Then the exit status should be 0
 
     # Then client "foo" should be connected to VPN network
-
-    # When I run `ls /clients` in client "first-client"

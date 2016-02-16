@@ -26,8 +26,8 @@ When(/^I run "([^"]*)" openvpn client in docker$/) do |client_name|
   # Start openvpn client with the generated config (it must exist)
   openvpn_client = %Q{openvpn --config "/clients/#{client_name}.ovpn"}
   cd 'clients' do
-    # Run client daemon in background and return control to process
-    run %Q{docker run --rm --net=host --privileged --name #{client_name} --volume #{Dir.getwd}:/clients kylemanna/openvpn #{openvpn_client}}
+    # Run client daemon in background and return control to process, wait 5 seconds before returing to give time to docker to start
+    run %Q{docker run --rm --net=host --privileged --name #{client_name} --volume #{Dir.getwd}:/clients kylemanna/openvpn #{openvpn_client}}, startup_wait_time: 5
   end
 end
 
