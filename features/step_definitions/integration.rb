@@ -7,7 +7,7 @@ end
 
 Given(/^a running OpenVPN process$/) do
   # This will run the server image and immediately detach.
-  run %Q{docker run --volumes-from #{@data_volume} --name ovpn-server --rm -p 1194:1194 --privileged kylemanna/openvpn}, startup_wait_time: 10
+  run %Q{docker run --volumes-from #{@data_volume} --name ovpn-server --rm -p 1194:1194 --cap-add=NET_ADMIN kylemanna/openvpn}, startup_wait_time: 10
   # With this variable running server can be accessed later
   @running_server = last_command_started
 end
@@ -28,7 +28,7 @@ When(/^I run "([^"]*)" openvpn client in docker$/) do |client_name|
   openvpn_client = %Q{openvpn --config "/clients/#{client_name}.ovpn"}
   cd 'clients' do
     # Use container linking to make client connection working, mount client config volume and rm it when done
-    docker_options = %Q{--rm --privileged --name #{client_name} --link ovpn-server:ovpn-server --volume #{Dir.getwd}:/clients}
+    docker_options = %Q{--rm --cap-add=NET_ADMIN --name #{client_name} --link ovpn-server:ovpn-server --volume #{Dir.getwd}:/clients}
     # Run client daemon in background and return control to process, wait 15 seconds before returing to give time to docker to start
     run %Q{docker run #{docker_options} kylemanna/openvpn #{openvpn_client}}, startup_wait_time: 15
   end
